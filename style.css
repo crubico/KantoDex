@@ -1,0 +1,692 @@
+/* =============================================================
+   style.css — Kanto Pokédex
+   Mobile-first layout; breakpoints at 720 px (tablet/desktop)
+   ============================================================= */
+
+/* ---------- CSS custom properties (design tokens) ---------- */
+:root {
+    --bg: #070a10;
+    --text: rgba(255, 255, 255, 0.92);
+    --muted: rgba(255, 255, 255, 0.72);
+    --line: rgba(255, 255, 255, 0.12);
+    --card: rgba(255, 255, 255, 0.08);
+    --card2: rgba(255, 255, 255, 0.06);
+    --shadow: 0 16px 50px rgba(0, 0, 0, 0.35);
+    --radius: 16px;
+    --max: 1120px;
+  
+    --red: #e11d48;
+    --blue: #2563eb;
+    --yellow: #facc15;
+  }
+  
+/* ---------- Base reset & body ---------- */
+  body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+      Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    background: var(--bg);
+    color: var(--text);
+  }
+  
+  a {
+    color: inherit;
+  }
+  
+  .wrap {
+    width: min(var(--max), 100%);
+    margin: 0 auto;
+    padding: 16px;
+  }
+  
+/* ---------- Navigation ---------- */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 0;
+  }
+  
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.08);
+  }
+  
+  .brandtext {
+    display: grid;
+    gap: 2px;
+  }
+  
+  .title {
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  
+  .subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  
+  .navlinks {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  
+  .navlinks a {
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 800;
+    font-size: 14px;
+  }
+  
+/* ---------- Hero section — Granim canvas sits behind content ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-top: 10px;
+  }
+  
+  #granim-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* lightened so Granim animated gradient is visible beneath */
+    background: radial-gradient(
+      1100px 420px at 50% -10%,
+      rgba(0, 0, 0, 0.05),
+      rgba(0, 0, 0, 0.45) 55%,
+      rgba(0, 0, 0, 0.68)
+    );
+    pointer-events: none;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 22px 16px 18px;
+    display: grid;
+    gap: 12px;
+  }
+  
+  .kicker {
+    margin: 0;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+  }
+  
+  h1 {
+    margin: 0;
+    font-size: clamp(26px, 7vw, 44px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+  
+  .sub {
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.55;
+    max-width: 62ch;
+  }
+  
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 6px;
+  }
+  
+  .badge {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 10px 12px;
+    display: grid;
+    gap: 4px;
+  }
+  
+  .badge-num {
+    font-weight: 950;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  
+  .badge-label {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  
+  .section {
+    margin-top: 18px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--card2);
+  }
+  
+  .section-head {
+    display: grid;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  
+  .section h2 {
+    margin: 0;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  
+  .hint {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  
+  .controls {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  
+  .field {
+    display: grid;
+    gap: 6px;
+  }
+  
+  .field-label {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+  }
+  
+  input,
+  select {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(0, 0, 0, 0.26);
+    color: var(--text);
+    border-radius: 12px;
+    padding: 12px 12px;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  input:focus,
+  select:focus {
+    box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.22);
+    border-color: rgba(250, 204, 21, 0.35);
+  }
+  
+  .btn {
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--text);
+    padding: 12px 14px;
+    border-radius: 999px;
+    font-weight: 900;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .btn.secondary {
+    background: rgba(0, 0, 0, 0.26);
+  }
+  
+  .status {
+    margin-top: 12px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 13px;
+  }
+  
+/* ---------- Pokémon card grid ---------- */
+  .grid {
+    margin-top: 12px;
+    display: grid;
+    gap: 12px;
+  }
+  
+  .card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--card);
+    padding: 14px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+    display: grid;
+    gap: 10px;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .card:focus-visible {
+    box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.28), 0 10px 26px rgba(0, 0, 0, 0.25);
+  }
+  
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .poke {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  
+  .sprite {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(0, 0, 0, 0.22);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  
+  .sprite img {
+    width: 80px;
+    height: 80px;
+    image-rendering: auto; /* GIFs look better with auto, not pixelated */
+  }
+  
+  .name {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+  }
+  
+  .name strong {
+    font-size: 16px;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+  }
+  
+  .dexno {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  
+  .types {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  
+  .type {
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(0, 0, 0, 0.22);
+  }
+  
+  .preview {
+    display: grid;
+    gap: 8px;
+  }
+  
+  .statline {
+    display: grid;
+    grid-template-columns: 56px 1fr 40px;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .statline label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  
+  .bar {
+    height: 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+  }
+  
+  .fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--blue), var(--red));
+  }
+  
+  .val {
+    font-size: 12px;
+    font-weight: 900;
+    text-align: right;
+    color: rgba(255, 255, 255, 0.86);
+  }
+  
+/* ---------- Glide.js featured carousel ---------- */
+  .glide {
+    margin-top: 10px;
+  }
+
+  .glide__slide .slide-card {
+    height: 240px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .slide-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    padding: 16px 14px;
+  }
+
+  /* no border or background — GIF floats freely */
+  .slide-sprite {
+    width: 96px;
+    height: 96px;
+    display: grid;
+    place-items: center;
+  }
+
+  .slide-sprite img {
+    width: 110px;
+    height: 110px;
+    image-rendering: auto;
+    filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.55));
+  }
+
+  .slide-title {
+    margin: 0;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    font-weight: 950;
+    text-transform: capitalize;
+  }
+
+  .slide-sub {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  
+  .footer {
+    padding: 18px 0 28px;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 13px;
+  }
+  
+/* ---------- Modal — Anime.js animates open/close ---------- */
+  /* Modal */
+  .modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 50;
+  }
+  
+  .modal.is-open {
+    display: block;
+  }
+  
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+  }
+  
+  .modal-panel {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(560px, calc(100% - 28px));
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(10, 12, 18, 0.92);
+    border-radius: 18px;
+    box-shadow: 0 18px 70px rgba(0, 0, 0, 0.55);
+    overflow: hidden;
+  }
+  
+  .modal-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text);
+    width: 38px;
+    height: 38px;
+    cursor: pointer;
+    font-weight: 900;
+  }
+  
+  .modal-head {
+    padding: 18px 16px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .modal-sprite {
+    width: 96px;
+    height: 96px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(0, 0, 0, 0.22);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  
+  .modal-sprite img {
+    width: 108px;
+    height: 108px;
+    image-rendering: auto;
+  }
+  
+  .modal-titlewrap {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+  }
+  
+  .modal-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 950;
+    letter-spacing: -0.01em;
+    text-transform: capitalize;
+  }
+  
+  .modal-sub {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  
+  .modal-body {
+    padding: 0 16px 16px;
+    display: grid;
+    gap: 12px;
+  }
+  
+  .modal-types {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .modal-stats {
+    display: grid;
+    gap: 10px;
+  }
+  
+  .modal-meta {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 12px;
+    display: grid;
+    gap: 10px;
+  }
+  
+  .meta-item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: baseline;
+  }
+  
+  .meta-label {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.72);
+    font-weight: 900;
+  }
+  
+  .meta-value {
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 14px;
+  }
+  
+/* ---------- Library credits list ---------- */
+  .lib-list {
+    display: grid;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .lib-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--card);
+  }
+
+  .lib-icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--blue), var(--red));
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    font-size: 15px;
+    color: #fff;
+  }
+
+  .lib-info {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  .lib-name {
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+
+  .lib-desc {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+/* ---------- Responsive breakpoints — mobile-first ---------- */
+  /* Larger screens */
+  @media (min-width: 720px) {
+    .wrap {
+      padding: 20px;
+    }
+  
+    .hero-content {
+      padding: 34px 26px 26px;
+    }
+  
+    .controls {
+      grid-template-columns: 1.2fr 0.8fr auto;
+      align-items: end;
+    }
+  
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  
+    .glide__slide .slide-card {
+      height: 260px;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      scroll-behavior: auto !important;
+      transition: none !important;
+      animation: none !important;
+    }
+  }
