@@ -2,9 +2,6 @@
 
 A web-based Pokédex for all 151 original Kanto Pokémon. Built mobile-first with live data from PokéAPI and animated GIF sprites.
 
-## Live Site
-[View the Pokédex](github.com/crubico/KantoDex)
-
 ## Features
 - Search Pokémon by name or Pokédex number
 - Filter by type
